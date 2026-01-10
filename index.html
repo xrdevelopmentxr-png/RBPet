@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pet Fusion | Roblox</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #6dd5ed, #2193b0);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #ffdd57;
+      text-shadow: 2px 2px #000;
+    }
+    .container {
+      padding: 30px;
+    }
+    .rules {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto 40px auto;
+      box-shadow: 0px 0px 15px rgba(0,0,0,0.4);
+    }
+    .rules h2 {
+      color: #ffdd57;
+      margin-bottom: 15px;
+    }
+    .rules ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .rules li {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 1.1em;
+    }
+
+    /* Game area */
+    .game {
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 700px;
+      margin: auto;
+    }
+    .pets {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    .pet {
+      width: 100px;
+      height: 100px;
+      background: #ffdd57;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: grab;
+      user-select: none;
+    }
+    .fusion-zone {
+      width: 150px;
+      height: 150px;
+      border: 3px dashed #fff;
+      border-radius: 15px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      color: #ffdd57;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐾 Pet Fusion | Roblox 🐾</h1>
+  </header>
+
+  <div class="container">
+    <section class="rules">
+      <h2>Game Rules</h2>
+      <ul>
+        <li>1. Be kind and respectful to other players.</li>
+        <li>2. No scamming or stealing pets.</li>
+        <li>3. No exploiting, cheating, or using hacks.</li>
+        <li>4. Trade fairly – both sides should agree.</li>
+        <li>5. Report bugs instead of abusing them.</li>
+        <li>6. Have fun and enjoy fusing pets!</li>
+      </ul>
+    </section>
+
+    <section class="game">
+      <h2>Mini Fusion Game</h2>
+      <p>Drag a pet into the fusion zone to fuse!</p>
+      <div class="pets">
+        <div class="pet" draggable="true" id="pet1">🐶</div>
+        <div class="pet" draggable="true" id="pet2">🐱</div>
+        <div class="pet" draggable="true" id="pet3">🐰</div>
+      </div>
+      <div class="fusion-zone" id="fusionZone">
+        Drop Here
+      </div>
+      <p id="fusionResult"></p>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Pet Fusion Roblox Fan Page. All rights reserved.
+  </footer>
+
+  <script>
+    const pets = document.querySelectorAll(".pet");
+    const fusionZone = document.getElementById("fusionZone");
+    const result = document.getElementById("fusionResult");
+
+    pets.forEach(pet => {
+      pet.addEventListener("dragstart", e => {
+        e.dataTransfer.setData("text/plain", pet.id);
+      });
+    });
+
+    fusionZone.addEventListener("dragover", e => {
+      e.preventDefault();
+      fusionZone.style.borderColor = "#ffdd57";
+    });
+
+    fusionZone.addEventListener("dragleave", () => {
+      fusionZone.style.borderColor = "#fff";
+    });
+
+    fusionZone.addEventListener("drop", e => {
+      e.preventDefault();
+      fusionZone.style.borderColor = "#fff";
+      const petId = e.dataTransfer.getData("text/plain");
+      let fusionEmoji = "✨";
+      if (petId === "pet1") fusionEmoji = "🐕✨";
+      if (petId === "pet2") fusionEmoji = "🐈✨";
+      if (petId === "pet3") fusionEmoji = "🐇✨";
+
+      result.textContent = "You fused " + document.getElementById(petId).textContent + " into " + fusionEmoji;
+    });
+  </script>
+</body>
+</html>
